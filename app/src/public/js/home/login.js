@@ -8,10 +8,24 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     function login() {
-        const req = {
-            id : id.value,
-            password : password.value
+        const data = {
+            id:id.value,
+            password:password.value
         }
-        console.log(req)
+        
+        fetch('/login', {
+            method : 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify(data)
+        }).then(res => res.json()).
+        then(data => {
+            if(data.success){
+                location.href = '/'
+            }else{
+                alert(data.msg)
+            }
+        })
     }
 })
